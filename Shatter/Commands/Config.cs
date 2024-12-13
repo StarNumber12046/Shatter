@@ -61,7 +61,7 @@ namespace Shatter.Commands
                         {
                             int extraVotes = int.Parse(args[1]);
                             Config.extraVotes = extraVotes;
-                            return $"forceEndPad: {Config.extraVotes}";
+                            return $"extraVotes: {Config.extraVotes}";
                         }
                         catch (Exception e)
                         {
