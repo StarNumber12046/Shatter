@@ -23,14 +23,14 @@ jobs:
         run: git clone https://github.com/CrystalMarble/dllrepo
       - name: Copy Ultra dlls
         run: |
-          mkdir -Force ExampleMod/Libraries
-          copy dllrepo/ultra/* ExampleMod/Libraries/
+          mkdir -Force Shatter/Libraries
+          copy dllrepo/ultra/* Shatter/Libraries/
       - name: Download 0Harmony
         run: |
           Invoke-WebRequest "https://github.com/pardeike/Harmony/releases/download/v2.3.3.0/Harmony-Fat.2.3.3.0.zip" -OutFile ./_Harmony.zip
           mkdir _Harmony
           Expand-Archive -LiteralPath ./_Harmony.zip -DestinationPath ./_Harmony/
-          copy ./_Harmony/net48/0Harmony.dll ./ExampleMod/Libraries/
+          copy ./_Harmony/net48/0Harmony.dll ./Shatter/Libraries/
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
       - name: Setup NuGet
@@ -39,16 +39,16 @@ jobs:
           nuget-version: "latest"
 
       - name: Build Solution
-        run: msbuild ./ExampleMod/ExampleMod.csproj /p:Configuration=Release
+        run: msbuild ./Shatter/Shatter.csproj /p:Configuration=Release
       - name: Copy necessary files to release
         run: |
           mkdir Release
-          copy ./ExampleMod/bin/Release/ExampleMod.* Release/
+          copy ./Shatter/bin/Release/Shatter.* Release/
       - name: Publish Build Artifacts
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: ExampleMod
+          name: Shatter
           path: Release
   release:
     needs: build
@@ -62,16 +62,16 @@ jobs:
       - name: Download Build Artifacts
         uses: actions/download-artifact@v4
         with:
-          name: ExampleMod
+          name: Shatter
           path: Release
       - name: ZIPs the contents
         uses: TheDoctor0/zip-release@0.7.1
         with:
-          filename: "ExampleMod.zip"
+          filename: "Shatter.zip"
           directory: Release
       - name: Create Relese
         uses: ncipollo/release-action@v1.10.0
         with:
           artifacts: "Release/*.zip"
           tag: "${{ github.ref_name }}"
-          name: "ExampleMod-${{ github.ref_name }}"
+          name: "Shatter-${{ github.ref_name }}"

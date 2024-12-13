@@ -7,7 +7,7 @@ using UnityEngine;
 using System.Reflection;
 
 
-namespace ExampleMod
+namespace Shatter
 {
 
     public class CrystalMarble
@@ -22,9 +22,10 @@ namespace ExampleMod
         {
             if (!CrystalMarble.Patched)
             {
-                new Harmony("com.example.examplemod").PatchAll();
+                new Harmony("com.example.Shatter").PatchAll();
                 CrystalMarble.Patched = false;
                 SceneManager.sceneLoaded -= new UnityAction<Scene, LoadSceneMode>(CrystalMarble.Patch);
+                Config.Init();
             }
         }
     }

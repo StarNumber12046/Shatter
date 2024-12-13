@@ -8,14 +8,22 @@ class Config
 {
     public string? UltraPath { get; set; }
     public string? ModDirectory { get; set; }
-    public static string[] Dependencies { get; set; } = new[] { "0Harmony.dll", "UnityEngine.dll", "UnityEngine.CoreModule.dll", "Assembly-CSharp.dll" };
+    public static string[] Dependencies { get; set; } = new[] { 
+        "0Harmony.dll", 
+        "UnityEngine.dll", 
+        "UnityEngine.CoreModule.dll", 
+        "Assembly-CSharp.dll", 
+        "UnityEngine.AudioModule.dll", 
+        "UnityEngine.ImageConversionModule.dll", 
+        "UnityEngine.SharedInternalsModule.dll", 
+        "TECNetUnity.dll" };
     public string? HarmonyPath { get; set; }
 }
 
 
 internal class Builder
 {
-    static string MOD_NAME = "ExampleMod"; // Change this to the name of your mod
+    static string MOD_NAME = "Shatter"; // Change this to the name of your mod
     public static string GetHarmonyPath()
     {
         var ShouldDownloadHarmony = Prompt.Confirm("Should the program automatically download 0Harmony for you?", defaultValue: true);
